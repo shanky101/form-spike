@@ -1,26 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import { MantineProvider, createTheme } from '@mantine/core';
+import { router } from './routes';
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/tiptap/styles.css';
 
-function App() {
+const theme = createTheme({
+  primaryColor: 'purple',
+  colors: {
+    purple: [
+      '#f5f0ff',
+      '#e5dbfa',
+      '#c9b2f3',
+      '#ad89ec',
+      '#9670e5',
+      '#8661e0',
+      '#7a52db',
+      '#6a43c8',
+      '#5e3ab6',
+      '#5031a4'
+    ],
+  },
+  fontFamily: 'Roboto, sans-serif',
+  defaultRadius: 'md',
+  components: {
+    RichTextEditor: {
+      styles: {
+        root: {
+          // Add any root-level styles here
+        },
+        content: {
+          '.variable-token': {
+            backgroundColor: '#E7F5FF',
+            color: '#228BE6',
+            padding: '2px 4px',
+            borderRadius: '4px',
+            margin: '0 2px',
+            display: 'inline-block'
+          }
+        }
+      }
+    }
+  }
+});
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MantineProvider theme={theme} defaultColorScheme="light">
+      <RouterProvider router={router} />
+    </MantineProvider>
   );
-}
+};
 
 export default App;
